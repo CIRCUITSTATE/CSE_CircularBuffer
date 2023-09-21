@@ -1,0 +1,30 @@
+#######################################
+# Syntax Coloring Map For CSE_CircBuffer
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+CSE_CircBuffer  KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+getHead KEYWORD2
+getTail KEYWORD2
+getCapacity  KEYWORD2
+isFull  KEYWORD2
+isEmpty KEYWORD2
+getOccupiedLength KEYWORD2
+getVacantLength KEYWORD2
+push KEYWORD2
+pop KEYWORD2
+bufferCopy KEYWORD2
+clear KEYWORD2
+peek KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
