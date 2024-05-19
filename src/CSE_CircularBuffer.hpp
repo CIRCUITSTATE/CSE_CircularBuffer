@@ -6,7 +6,7 @@
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
  * @brief Header file for the CSE_CircularBuffer Arduino library.
  * @version 0.0.2
- * @date Last Modified: +05:30 15:48:57 PM 19-05-2024, Sunday
+ * @date Last Modified: +05:30 21:55:33 PM 19-05-2024, Sunday
  * @license MIT
  * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */
@@ -33,7 +33,7 @@ class CSE_CircularBuffer {
   public:
     bool discardOld;  // Wheather to discard old data when the buffer is full
 
-    CSE_CircularBuffer (int length); // Dynamically create a byte buffer
+    CSE_CircularBuffer (int length); // Dynamically create a data buffer
     CSE_CircularBuffer (CSE_CB_t* buffer, int length); // Accept a user defined buffer
     ~CSE_CircularBuffer(); // Destructor
 

@@ -6,7 +6,7 @@
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
  * @brief Main source file for the CSE_CircularBuffer Arduino library.
  * @version 0.0.2
- * @date Last Modified: +05:30 15:47:38 PM 19-05-2024, Sunday
+ * @date Last Modified: +05:30 21:47:05 PM 19-05-2024, Sunday
  * @license MIT
  * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */
@@ -215,7 +215,7 @@ int CSE_CircularBuffer <CSE_CB_t> :: push (CSE_CB_t data) {
  * 
  * @param data A data buffer of CSE_CB_t.
  * @param length Number of data in the buffer. Can be less than the actual length of the buffer.
- * @param byteOrder The order of the data in the buffer. 0 for same order, 1 for reverse order.
+ * @param dataOrder The order of the data in the buffer. 0 for same order, 1 for reverse order.
  * @return int The number of data items pushed.
  */
 template <typename CSE_CB_t>
@@ -304,7 +304,7 @@ int CSE_CircularBuffer <CSE_CB_t> :: pop (CSE_CB_t* data, int length) {
  * 
  * @param data The destination data array of type CSE_CB_t.
  * @param length The number of data items to copy. If set to 0, the entire circular buffer is copied.
- * @param byteOrder The order of the data in the buffer. 0 for same order, 1 for reverse order.
+ * @param dataOrder The order of the data in the buffer. 0 for same order, 1 for reverse order.
  * @return int The number of data copied.
  */
 template <typename CSE_CB_t>
