@@ -6,7 +6,7 @@
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
  * @brief Reads 100 samples from the an ADC pin and prints the average every 500ms.
  * @version 0.0.2
- * @date Last Modified: +05:30 18:10:41 PM 19-05-2024, Sunday
+ * @date Last Modified: +05:30 20:57:22 PM 19-05-2024, Sunday
  * @license MIT
  * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */
@@ -21,15 +21,15 @@
 
 //=================================================================================//
 
-CSE_CircularBuffer <int> cbuffer (100);
-CSE_MillisTimer printTimer (500);
+CSE_CircularBuffer <int> cbuffer (100); // Create a buffer with capacity of 100
+CSE_MillisTimer printTimer (500); // Create a timer with a 500 ms interval
 
 //=================================================================================//
 
 void setup() {
   Serial.begin (115200);
   pinMode (ADC_PIN, INPUT);
-  printTimer.start();
+  printTimer.start(); // Start the timer
 }
 
 //=================================================================================//
