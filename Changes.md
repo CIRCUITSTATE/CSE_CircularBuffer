@@ -2,6 +2,11 @@
 
 
 #
+### **+05:30 08:56:05 PM 19-05-2024, Sunday**
+
+  * Updated Readme.
+
+#
 ### **+05:30 06:08:52 PM 19-05-2024, Sunday** 
 
   * Added the `ADC-Average.ino` example.
