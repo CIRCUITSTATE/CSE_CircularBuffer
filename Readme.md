@@ -13,8 +13,8 @@ The following example shows how to read values through an ADC pin and store them
 
 #define  ADC_PIN   A0
 
-CSE_CircularBuffer <int> cbuffer (100);
-CSE_MillisTimer printTimer (500);
+CSE_CircularBuffer <int> cbuffer (100); // Create a buffer with capacity of 100
+CSE_MillisTimer printTimer (500); // Create a timer with a 500 ms interval
 
 void setup() {
   Serial.begin (115200);
