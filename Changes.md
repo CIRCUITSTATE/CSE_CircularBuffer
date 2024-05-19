@@ -1,6 +1,13 @@
 
 
 #
+### **+05:30 04:09:07 PM 19-05-2024, Sunday**
+
+  * Updated `Test.ino` example.
+    * Added `CSE_Data_t` type. Set the data type of the buffer here and it will be used in all test-cases.
+    * Renamed `dataByte` to `dataItem`.
+
+#
 ### **+05:30 03:47:44 PM 19-05-2024, Sunday**
 
   * Updated documentation.
