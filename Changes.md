@@ -1,6 +1,11 @@
 
 
 #
+### **+05:30 10:21:41 PM 19-05-2024, Sunday**
+
+  * Added LICENSE file.
+
+#
 ### **+05:30 09:55:39 PM 19-05-2024, Sunday**
 
   * Updated API.md.
