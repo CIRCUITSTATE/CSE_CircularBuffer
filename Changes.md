@@ -1,5 +1,11 @@
 
 
+
+#
+### **+05:30 06:08:52 PM 19-05-2024, Sunday** 
+
+  * Added the `ADC-Average.ino` example.
+
 #
 ### **+05:30 04:09:07 PM 19-05-2024, Sunday**
 
