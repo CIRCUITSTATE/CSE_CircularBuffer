@@ -5,8 +5,8 @@
  * @author Vishnu Mohanan (@vishnumaiea, @vizmohanan)
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
  * @brief Main source file for the CSE_CircularBuffer Arduino library.
- * @version 0.0.1
- * @date Last Modified: +05:30 11:48:06 AM 19-05-2024, Sunday
+ * @version 0.0.2
+ * @date Last Modified: +05:30 12:13:15 PM 19-05-2024, Sunday
  * @license MIT
  * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */

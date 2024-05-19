@@ -2,6 +2,11 @@
 
 
 #
+### **+05:30 12:07:47 PM 19-05-2024, Sunday**
+
+  * Updated version to `0.0.2`.
+
+#
 ### **+05:30 11:48:41 AM 19-05-2024, Sunday**
 
   * Renamed library and class to `CSE_CircularBuffer`.

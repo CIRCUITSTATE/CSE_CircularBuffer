@@ -5,8 +5,8 @@
  * @author Vishnu Mohanan (@vishnumaiea, @vizmohanan)
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
  * @brief Header file for the CSE_CircularBuffer Arduino library.
- * @version 0.0.1
- * @date Last Modified: +05:30 11:51:46 AM 19-05-2024, Sunday
+ * @version 0.0.2
+ * @date Last Modified: +05:30 12:38:51 PM 19-05-2024, Sunday
  * @license MIT
  * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */
@@ -18,7 +18,10 @@
 #include <Arduino.h>
 
 //==========================================================================================//
-
+/**
+ * @brief The main circular buffer class.
+ * 
+ */
 class CSE_CircularBuffer {
   private:
     uint8_t* buffer;  // Pointer to the buffer
