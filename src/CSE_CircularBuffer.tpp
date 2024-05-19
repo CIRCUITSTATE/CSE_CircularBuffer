@@ -6,13 +6,13 @@
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
  * @brief Main source file for the CSE_CircularBuffer Arduino library.
  * @version 0.0.2
- * @date Last Modified: +05:30 12:13:15 PM 19-05-2024, Sunday
+ * @date Last Modified: +05:30 15:15:07 PM 19-05-2024, Sunday
  * @license MIT
  * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */
 //==========================================================================================//
 
-#include "CSE_CircularBuffer.h"
+// #include "CSE_CircularBuffer.hpp"
 
 //==========================================================================================//
 /**
@@ -27,7 +27,8 @@
  * @param length The length of the buffer.
  * @return CSE_CircularBuffer:: 
  */
-CSE_CircularBuffer:: CSE_CircularBuffer (uint8_t* buffer, int length) {
+template <typename CSE_CB_t>
+CSE_CircularBuffer <CSE_CB_t> :: CSE_CircularBuffer (CSE_CB_t* buffer, int length) {
   this->buffer = buffer;
   maxlen = (length - 1);  // Usable length is length - 1
   head = 0;
@@ -45,8 +46,9 @@ CSE_CircularBuffer:: CSE_CircularBuffer (uint8_t* buffer, int length) {
  * @param length The number of usable bytes.
  * @return CSE_CircularBuffer:: 
  */
-CSE_CircularBuffer:: CSE_CircularBuffer (int length) {
-  buffer = (uint8_t*) malloc (sizeof (uint8_t) * (length + 1)); // Need one extra byte
+template <typename CSE_CB_t>
+CSE_CircularBuffer <CSE_CB_t> :: CSE_CircularBuffer (int length) {
+  buffer = (CSE_CB_t*) malloc (sizeof (CSE_CB_t) * (length + 1)); // Need one extra byte
   
   for (int i = 0; i < (length + 1); i++) {
     buffer [i] = 0;
@@ -64,7 +66,8 @@ CSE_CircularBuffer:: CSE_CircularBuffer (int length) {
  * 
  * @return CSE_CircularBuffer:: 
  */
-CSE_CircularBuffer:: ~CSE_CircularBuffer() {
+template <typename CSE_CB_t>
+CSE_CircularBuffer <CSE_CB_t> :: ~CSE_CircularBuffer() {
   free (buffer);
 }
 
@@ -74,7 +77,8 @@ CSE_CircularBuffer:: ~CSE_CircularBuffer() {
  * 
  * @return int The head position.
  */
-int CSE_CircularBuffer:: getHead() {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: getHead() {
   return head;
 }
 
@@ -84,7 +88,8 @@ int CSE_CircularBuffer:: getHead() {
  * 
  * @return int The tail position.
  */
-int CSE_CircularBuffer:: getTail() {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: getTail() {
   return tail;
 }
 
@@ -96,7 +101,8 @@ int CSE_CircularBuffer:: getTail() {
  * 
  * @return int The capacity of the circular buffer in bytes.
  */
-int CSE_CircularBuffer:: getCapacity() {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: getCapacity() {
   return maxlen;
 }
 
@@ -107,7 +113,8 @@ int CSE_CircularBuffer:: getCapacity() {
  * @return true Circular buffer is full.
  * @return false Circular buffer is not full.
  */
-bool CSE_CircularBuffer:: isFull() {
+template <typename CSE_CB_t>
+bool CSE_CircularBuffer <CSE_CB_t> :: isFull() {
   // Calculate the next position for the head when it wraps around
   size_t nextHead = (head + 1) % maxlen;
 
@@ -126,7 +133,8 @@ bool CSE_CircularBuffer:: isFull() {
  * @return true Buffer is empty.
  * @return false Buffer is not empty.
  */
-bool CSE_CircularBuffer:: isEmpty() {
+template <typename CSE_CB_t>
+bool CSE_CircularBuffer <CSE_CB_t> :: isEmpty() {
   if (head == tail) {  // if the head == tail, we don't have any data
     // head = 0;
     // tail = 0;
@@ -141,7 +149,8 @@ bool CSE_CircularBuffer:: isEmpty() {
  * 
  * @return int The number of bytes.
  */
-int CSE_CircularBuffer:: getOccupiedLength() {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: getOccupiedLength() {
   if (head >= tail) {
     return (head - tail);
   }
@@ -156,7 +165,8 @@ int CSE_CircularBuffer:: getOccupiedLength() {
  * 
  * @return int The number of free bytes.
  */
-int CSE_CircularBuffer:: getVacantLength() {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: getVacantLength() {
   return (maxlen - 1) - getOccupiedLength();
 }
 
@@ -169,7 +179,8 @@ int CSE_CircularBuffer:: getVacantLength() {
  * @param data The data to be pushed.
  * @return int 0 if successful; -1 if unsuccessful.
  */
-int CSE_CircularBuffer:: push (uint8_t data) {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: push (CSE_CB_t data) {
   int next;
 
   next = head + 1;  // next is where head will point to after this write.
@@ -203,7 +214,8 @@ int CSE_CircularBuffer:: push (uint8_t data) {
  * @param byteOrder The order of the bytes in the buffer. 0 for same order, 1 for reverse order.
  * @return int The number of bytes pushed.
  */
-int CSE_CircularBuffer:: push (uint8_t* data, int length, int byteOrder) {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: push (CSE_CB_t* data, int length, int byteOrder) {
   int i;
 
   for (i = 0; i < length; i++) {
@@ -229,7 +241,8 @@ int CSE_CircularBuffer:: push (uint8_t* data, int length, int byteOrder) {
  * @param data The destination byte.
  * @return int 0 if successful; -1 if unsuccessful.
  */
-int CSE_CircularBuffer:: pop (uint8_t* data) {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: pop (CSE_CB_t* data) {
   int next;
 
   if (isEmpty()) {  // If no data
@@ -256,7 +269,8 @@ int CSE_CircularBuffer:: pop (uint8_t* data) {
  * @param length The number of bytes to pop.
  * @return int -1 if buffer is empty; number of bytes popped if successful.
  */
-int CSE_CircularBuffer:: pop (uint8_t* data, int length) {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: pop (CSE_CB_t* data, int length) {
   int next;
   int i;
 
@@ -289,7 +303,8 @@ int CSE_CircularBuffer:: pop (uint8_t* data, int length) {
  * @param byteOrder The order of the bytes in the buffer. 0 for same order, 1 for reverse order.
  * @return int The number of bytes copied.
  */
-int CSE_CircularBuffer:: bufferCopy (uint8_t* data, int length, int byteOrder) {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: bufferCopy (CSE_CB_t* data, int length, int byteOrder) {
   int i;
   int j;
   int k;
@@ -334,7 +349,8 @@ int CSE_CircularBuffer:: bufferCopy (uint8_t* data, int length, int byteOrder) {
  * 
  * @return int The number of bytes present in the buffer before clearing.
  */
-int CSE_CircularBuffer:: clear() {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: clear() {
   int length = getOccupiedLength();
   head = 0;
   tail = 0;
@@ -349,7 +365,8 @@ int CSE_CircularBuffer:: clear() {
  * @param data The destination byte.
  * @return int 0 if successful; -1 if unsuccessful.
  */
-int CSE_CircularBuffer:: peek (uint8_t* data) {
+template <typename CSE_CB_t>
+int CSE_CircularBuffer <CSE_CB_t> :: peek (CSE_CB_t* data) {
   if (head == tail) {  // if the head == tail, we don't have any data
     return -1;
   }

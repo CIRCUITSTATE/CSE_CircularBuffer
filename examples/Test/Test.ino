@@ -9,7 +9,7 @@
 uint8_t dataByte = 0;
 uint8_t printBuffer [10] = {0};
 
-CSE_CircularBuffer cBuffer (10);  // Create a circular buffer object with the data buffer and length.
+CSE_CircularBuffer <> cBuffer (10);  // Create a circular buffer object with the data buffer and length.
 
 //==========================================================================================//
 

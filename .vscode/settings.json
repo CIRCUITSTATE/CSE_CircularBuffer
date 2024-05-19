@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "string_view": "cpp",
+    "cse_circularbuffer.hpp": "c",
+    "istream": "c",
+    "streambuf": "c",
+    "*.tpp": "c"
+  }
+}
