@@ -4,6 +4,8 @@
     "cse_circularbuffer.hpp": "c",
     "istream": "c",
     "streambuf": "c",
-    "*.tpp": "c"
+    "*.tpp": "c",
+    "array": "c",
+    "string": "c"
   }
 }

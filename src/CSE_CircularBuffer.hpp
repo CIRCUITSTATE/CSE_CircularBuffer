@@ -6,7 +6,7 @@
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
  * @brief Header file for the CSE_CircularBuffer Arduino library.
  * @version 0.0.2
- * @date Last Modified: +05:30 15:15:08 PM 19-05-2024, Sunday
+ * @date Last Modified: +05:30 15:48:57 PM 19-05-2024, Sunday
  * @license MIT
  * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */
@@ -43,18 +43,17 @@ class CSE_CircularBuffer {
 
     bool isFull (void); // Check if the buffer is full
     bool isEmpty (void); // Check if the buffer is empty
-    int getOccupiedLength (void); // Get the number of occupied bytes in the buffer
-    int getVacantLength (void); // Get the number of vacant bytes in the buffer
-    int push (CSE_CB_t data); // Push a single byte into the buffer
-    int push (CSE_CB_t* data, int length, int byteOrder = 0); // Push a byte array into the buffer
-    int pop (CSE_CB_t* data); // Pop a single byte from the buffer
-    int pop (CSE_CB_t* data, int length); // Pop a byte array from the buffer
-    int bufferCopy (CSE_CB_t* data, int length = 0, int byteOrder = 0); // Copy the buffer to a byte array, without popping
+    int getOccupiedLength (void); // Get the number of occupied locations in the buffer
+    int getVacantLength (void); // Get the number of vacant locations in the buffer
+    int push (CSE_CB_t data); // Push a single data item into the buffer
+    int push (CSE_CB_t* data, int length, int dataOrder = 0); // Push a data array into the buffer
+    int pop (CSE_CB_t* data); // Pop a single data from the buffer
+    int pop (CSE_CB_t* data, int length); // Pop a data array from the buffer
+    int bufferCopy (CSE_CB_t* data, int length = 0, int dataOrder = 0); // Copy the buffer to a data array, without popping
     int clear (void); // Clear the buffer
-    int peek (CSE_CB_t* data); // Peek a single byte from the buffer without popping
+    int peek (CSE_CB_t* data); // Peek a single data from the buffer without popping
 };
 
-// Include the implementation file at the end of the header
 #include "CSE_CircularBuffer.tpp"
 
 //==========================================================================================//

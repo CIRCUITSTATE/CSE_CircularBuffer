@@ -1,6 +1,12 @@
 
 
 #
+### **+05:30 03:47:44 PM 19-05-2024, Sunday**
+
+  * Updated documentation.
+  * Changed `byteOrder` to `dataOrder` everywhere.
+
+#
 ### **+05:30 03:12:03 PM 19-05-2024, Sunday**
 
   * Added support for any data type on the circular buffer.

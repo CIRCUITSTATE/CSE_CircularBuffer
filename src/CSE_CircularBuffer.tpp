@@ -6,7 +6,7 @@
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
  * @brief Main source file for the CSE_CircularBuffer Arduino library.
  * @version 0.0.2
- * @date Last Modified: +05:30 15:15:07 PM 19-05-2024, Sunday
+ * @date Last Modified: +05:30 15:47:38 PM 19-05-2024, Sunday
  * @license MIT
  * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */
@@ -18,13 +18,15 @@
 /**
  * @brief Creates a new circular buffer with user-defined buffer. The length should be the
  * length of the actual buffer. The actual usable length is length - 1. For example, if you
- * want 32 bytes for the data you must create a buffer with 33 bytes and send 33 as the
+ * want 32 items for the data you must create a buffer with a capacity of 33 and send 33 as the
  * length parameter.
+ * 
+ * The data size will be determined by the data type you set. For byte buffer, use uint8_t.
  * 
  * Old values in the buffer are not discarded by default.
  * 
- * @param buffer A uint8_t pointer to the buffer.
- * @param length The length of the buffer.
+ * @param buffer A pointer to the buffer.
+ * @param length The length of the buffer in data size.
  * @return CSE_CircularBuffer:: 
  */
 template <typename CSE_CB_t>
@@ -39,16 +41,16 @@ CSE_CircularBuffer <CSE_CB_t> :: CSE_CircularBuffer (CSE_CB_t* buffer, int lengt
 //==========================================================================================//
 /**
  * @brief Creates a new circular buffer with a dynamically allocated buffer. The length is
- * the number of usable bytes. So the function allocates length + 1 bytes.
+ * the number of usable data items. So the function allocates length + 1 for the buffer.
  * 
  * Old values in the buffer are not discarded by default.
  * 
- * @param length The number of usable bytes.
+ * @param length The number of usable data items.
  * @return CSE_CircularBuffer:: 
  */
 template <typename CSE_CB_t>
 CSE_CircularBuffer <CSE_CB_t> :: CSE_CircularBuffer (int length) {
-  buffer = (CSE_CB_t*) malloc (sizeof (CSE_CB_t) * (length + 1)); // Need one extra byte
+  buffer = (CSE_CB_t*) malloc (sizeof (CSE_CB_t) * (length + 1)); // Need one extra location
   
   for (int i = 0; i < (length + 1); i++) {
     buffer [i] = 0;
@@ -73,7 +75,8 @@ CSE_CircularBuffer <CSE_CB_t> :: ~CSE_CircularBuffer() {
 
 //==========================================================================================//
 /**
- * @brief Returns the head position of the circular buffer.
+ * @brief Returns the head position of the circular buffer. Head position is where new data is
+ * pushed to.
  * 
  * @return int The head position.
  */
@@ -84,7 +87,8 @@ int CSE_CircularBuffer <CSE_CB_t> :: getHead() {
 
 //==========================================================================================//
 /**
- * @brief Returns the tail position of the circular buffer.
+ * @brief Returns the tail position of the circular buffer. Tail position is where data is
+ * popped from.
  * 
  * @return int The tail position.
  */
@@ -97,9 +101,9 @@ int CSE_CircularBuffer <CSE_CB_t> :: getTail() {
 /**
  * @brief Returns the capacity of the circular buffer. With user-defined buffer, this is the
  * length of the buffer - 1. With dynamically allocated buffer, this is the total length of the
- * buffer including the extra byte.
+ * buffer including the extra location.
  * 
- * @return int The capacity of the circular buffer in bytes.
+ * @return int The capacity of the circular buffer in data count.
  */
 template <typename CSE_CB_t>
 int CSE_CircularBuffer <CSE_CB_t> :: getCapacity() {
@@ -138,16 +142,16 @@ bool CSE_CircularBuffer <CSE_CB_t> :: isEmpty() {
   if (head == tail) {  // if the head == tail, we don't have any data
     // head = 0;
     // tail = 0;
-    return true;
+    return true;  // Buffer is empty
   }
-  return false;
+  return false; // Buffer is not empty
 }
 
 //==========================================================================================//
 /**
- * @brief Returns the number of bytes occupied in the circular buffer.
+ * @brief Returns the number of data occupied in the circular buffer.
  * 
- * @return int The number of bytes.
+ * @return int The number of data.
  */
 template <typename CSE_CB_t>
 int CSE_CircularBuffer <CSE_CB_t> :: getOccupiedLength() {
@@ -161,9 +165,9 @@ int CSE_CircularBuffer <CSE_CB_t> :: getOccupiedLength() {
 
 //==========================================================================================//
 /**
- * @brief Returns the number of bytes vacant in the circular buffer.
+ * @brief Returns the number of locations vacant in the circular buffer.
  * 
- * @return int The number of free bytes.
+ * @return int The number of free locations.
  */
 template <typename CSE_CB_t>
 int CSE_CircularBuffer <CSE_CB_t> :: getVacantLength() {
@@ -172,26 +176,26 @@ int CSE_CircularBuffer <CSE_CB_t> :: getVacantLength() {
 
 //==========================================================================================//
 /**
- * @brief Pushes a single byte to the head end of the buffer. If the buffer is full, the oldest
- * byte (at the tail end) is discarded if discardOld is set to true. If discardOld is set to
- * false, the data is not pushed and the function returns -1.
+ * @brief Pushes a single data to the head end of the buffer. If the buffer is full, the oldest
+ * byte (at the tail end) is discarded if `discardOld` is set to `true`. If `discardOld` is set to
+ * `false`, the data is not pushed and the function returns -1.
  * 
- * @param data The data to be pushed.
- * @return int 0 if successful; -1 if unsuccessful.
+ * @param data The data to be pushed of type CSE_CB_t.
+ * @return int 0 if successful; -1 if otherwise.
  */
 template <typename CSE_CB_t>
 int CSE_CircularBuffer <CSE_CB_t> :: push (CSE_CB_t data) {
   int next;
 
-  next = head + 1;  // next is where head will point to after this write.
+  next = head + 1;  // Next is where head will point to after this write.
   
   if (next >= maxlen) {
     next = 0;
   }
 
-  if (next == tail) {  // if the head + 1 == tail, circular buffer is full
+  if (next == tail) {  // If the head + 1 == tail, circular buffer is full
     if (discardOld) {
-      tail = (tail + 1) % maxlen;  // discard the oldest byte
+      tail = (tail + 1) % maxlen;  // Discard the oldest data
     }
     else {
       return -1;
@@ -205,21 +209,21 @@ int CSE_CircularBuffer <CSE_CB_t> :: push (CSE_CB_t data) {
 
 //==========================================================================================//
 /**
- * @brief Pushes a byte array to the bufer. If the byteOrder is 0, the data is pushed in the
- * same order as in the array, with index [0] being the first byte. If the byteOrder is 1,
- * the data is pushed in reverse order, with index [0] being the last byte.
+ * @brief Pushes a data array to the buffer. If the dataOrder is 0, the data is pushed in the
+ * same order as in the array, with index [0] being the first data. If the dataOrder is 1,
+ * the data is pushed in reverse order, with index [0] being the last data.
  * 
- * @param data A byte buffer.
- * @param length Number of bytes in the buffer. Can be less than the actual length of the buffer.
- * @param byteOrder The order of the bytes in the buffer. 0 for same order, 1 for reverse order.
- * @return int The number of bytes pushed.
+ * @param data A data buffer of CSE_CB_t.
+ * @param length Number of data in the buffer. Can be less than the actual length of the buffer.
+ * @param byteOrder The order of the data in the buffer. 0 for same order, 1 for reverse order.
+ * @return int The number of data items pushed.
  */
 template <typename CSE_CB_t>
-int CSE_CircularBuffer <CSE_CB_t> :: push (CSE_CB_t* data, int length, int byteOrder) {
+int CSE_CircularBuffer <CSE_CB_t> :: push (CSE_CB_t* data, int length, int dataOrder) {
   int i;
 
   for (i = 0; i < length; i++) {
-    if (byteOrder == 0) {
+    if (dataOrder == 0) {
       if (push (data [i]) != 0) {
         break;  // Break when there is no more space
       }
@@ -230,15 +234,15 @@ int CSE_CircularBuffer <CSE_CB_t> :: push (CSE_CB_t* data, int length, int byteO
     }
   }
 
-  return i; // Return the number of bytes pushed
+  return i; // Return the number of data items pushed
 }
 
 //==========================================================================================//
 /**
- * @brief Pops a single byte from the tail end of the circular buffer. Returns -1 if the
- * buffer is empty. Or returns 0 if successful.
+ * @brief Pops a single data from the tail end of the circular buffer. Returns -1 if the
+ * buffer is empty, or 0 if successful.
  * 
- * @param data The destination byte.
+ * @param data The destination data of type CSE_CB_t.
  * @return int 0 if successful; -1 if unsuccessful.
  */
 template <typename CSE_CB_t>
@@ -261,13 +265,13 @@ int CSE_CircularBuffer <CSE_CB_t> :: pop (CSE_CB_t* data) {
 
 //==========================================================================================//
 /**
- * @brief Pops a range of data from the circular buffer and returns the number of bytes popped.
+ * @brief Pops a range of data from the circular buffer and returns the number of data popped.
  * If there is not enough data in the circular buffer, the function returns the number of
- * bytes popped before the buffer became empty.
+ * data popped before the buffer became empty.
  * 
- * @param data The destination byte array.
- * @param length The number of bytes to pop.
- * @return int -1 if buffer is empty; number of bytes popped if successful.
+ * @param data The destination data array of type CSE_CB_t.
+ * @param length The number of data items to pop.
+ * @return int -1 if the buffer is empty; number of data popped if successful.
  */
 template <typename CSE_CB_t>
 int CSE_CircularBuffer <CSE_CB_t> :: pop (CSE_CB_t* data, int length) {
@@ -284,7 +288,7 @@ int CSE_CircularBuffer <CSE_CB_t> :: pop (CSE_CB_t* data, int length) {
     }
   }
 
-  return i; // Return the number of bytes popped
+  return i; // Return the number of data popped
 }
 
 //==========================================================================================//
@@ -293,18 +297,18 @@ int CSE_CircularBuffer <CSE_CB_t> :: pop (CSE_CB_t* data, int length) {
  * user. This operation doesn't pop the data from the circular buffer. The target buffer
  * must have enough space to hold the data. The length is optional and if set to 0, the entire
  * circular buffer is copied up to maxlen. If the data in the circular buffer is less than
- * maxlen, then empty data is set to 0 in the target buffer. byteOrder is also optional and
+ * maxlen, then empty data is set to 0 in the target buffer. dataOrder is also optional and
  * determines the order of the data in the target buffer. If set to 0, the data is copied
  * in the same order as in the circular buffer. If set to 1, the data is copied in reverse
- * order. This function returns the number of bytes copied (excluding the empty data).
+ * order. This function returns the number of data items copied (excluding the empty data).
  * 
- * @param data The destination byte array.
- * @param length The number of bytes to copy. If set to 0, the entire circular buffer is copied.
- * @param byteOrder The order of the bytes in the buffer. 0 for same order, 1 for reverse order.
- * @return int The number of bytes copied.
+ * @param data The destination data array of type CSE_CB_t.
+ * @param length The number of data items to copy. If set to 0, the entire circular buffer is copied.
+ * @param byteOrder The order of the data in the buffer. 0 for same order, 1 for reverse order.
+ * @return int The number of data copied.
  */
 template <typename CSE_CB_t>
-int CSE_CircularBuffer <CSE_CB_t> :: bufferCopy (CSE_CB_t* data, int length, int byteOrder) {
+int CSE_CircularBuffer <CSE_CB_t> :: bufferCopy (CSE_CB_t* data, int length, int dataOrder) {
   int i;
   int j;
   int k;
@@ -315,7 +319,7 @@ int CSE_CircularBuffer <CSE_CB_t> :: bufferCopy (CSE_CB_t* data, int length, int
     toPad = true;
   }
 
-  if (byteOrder == 0) { // Copy in the same order (FIFO)
+  if (dataOrder == 0) { // Copy in the same order (FIFO)
     for (i = 0, j = tail; i < length; i++, j++) {
       if (j >= maxlen) {
         j = 0;
@@ -344,10 +348,10 @@ int CSE_CircularBuffer <CSE_CB_t> :: bufferCopy (CSE_CB_t* data, int length, int
 
 //==========================================================================================//
 /**
- * @brief Clears the circular buffer by setting the head and tail to 0. The number of bytes
+ * @brief Clears the circular buffer by setting the head and tail to 0. The number of data
  * currently in the circular buffer is returned.
  * 
- * @return int The number of bytes present in the buffer before clearing.
+ * @return int The number of data present in the buffer before clearing.
  */
 template <typename CSE_CB_t>
 int CSE_CircularBuffer <CSE_CB_t> :: clear() {
@@ -359,20 +363,20 @@ int CSE_CircularBuffer <CSE_CB_t> :: clear() {
 
 //==========================================================================================//
 /**
- * @brief Peeks the circular buffer by reading a single byte without popping it from the
+ * @brief Peeks the circular buffer by reading a single data without popping it from the
  * circular buffer.
  * 
- * @param data The destination byte.
+ * @param data The destination data of type CSE_CB_t.
  * @return int 0 if successful; -1 if unsuccessful.
  */
 template <typename CSE_CB_t>
 int CSE_CircularBuffer <CSE_CB_t> :: peek (CSE_CB_t* data) {
-  if (head == tail) {  // if the head == tail, we don't have any data
+  if (head == tail) {  // If the head == tail, we don't have any data
     return -1;
   }
 
   *data = buffer [tail];  // Read data
-  return 0;  // return success to indicate successful peek.
+  return 0;  // Return success to indicate successful peek.
 }
 
 //==========================================================================================//
