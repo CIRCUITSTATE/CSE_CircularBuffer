@@ -1,22 +1,25 @@
 
 //==========================================================================================//
 /**
- * @file CSE_CircBuffer.h
+ * @file CSE_CircularBuffer.h
  * @author Vishnu Mohanan (@vishnumaiea, @vizmohanan)
  * @maintainer CIRCUITSTATE Electronics (@circuitstate)
- * @brief Header file for the CSE_CircBuffer Arduino library.
+ * @brief Header file for the CSE_CircularBuffer Arduino library.
  * @version 0.0.1
- * @date Last Modified: +05:30 15:09:42 PM 21-09-2023, Thursday
+ * @date Last Modified: +05:30 11:51:46 AM 19-05-2024, Sunday
  * @license MIT
- * @mainpage https://github.com/CIRCUITSTATE/CSE_CircBuffer
+ * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
  */
 //==========================================================================================//
+
+#ifndef CSE_CIRCULARBUFFER_H
+#define CSE_CIRCULARBUFFER_H
 
 #include <Arduino.h>
 
 //==========================================================================================//
 
-class CSE_CircBuffer {
+class CSE_CircularBuffer {
   private:
     uint8_t* buffer;  // Pointer to the buffer
     int maxlen; // Maximum length of the buffer
@@ -26,9 +29,9 @@ class CSE_CircBuffer {
   public:
     bool discardOld;  // Wheather to discard old data when the buffer is full
 
-    CSE_CircBuffer (int length); // Dynamically create the buffer
-    CSE_CircBuffer (uint8_t* buf, int length); // Accept a user defined buffer
-    ~CSE_CircBuffer(); // Destructor
+    CSE_CircularBuffer (int length); // Dynamically create the buffer
+    CSE_CircularBuffer (uint8_t* buffer, int length); // Accept a user defined buffer
+    ~CSE_CircularBuffer(); // Destructor
 
     int getHead (void); // Get the head position
     int getTail (void); // Get the tail position
@@ -48,3 +51,5 @@ class CSE_CircBuffer {
 };
 
 //==========================================================================================//
+
+#endif

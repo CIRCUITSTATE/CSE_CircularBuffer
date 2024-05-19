@@ -2,14 +2,14 @@
 //==========================================================================================//
 
 #include <Arduino.h>
-#include <CSE_CircBuffer.h>
+#include <CSE_CircularBuffer.h>
 
 //==========================================================================================//
 
 uint8_t dataByte = 0;
 uint8_t printBuffer [10] = {0};
 
-CSE_CircBuffer cBuffer (10);  // Create a circular buffer object with the data buffer and length.
+CSE_CircularBuffer cBuffer (10);  // Create a circular buffer object with the data buffer and length.
 
 //==========================================================================================//
 
@@ -30,10 +30,14 @@ void setup();
 void loop();
 
 //==========================================================================================//
-
+/**
+ * @brief Fills the circular buffer with random data and prints it. Use this to verify
+ * that the circular buffer is working properly.
+ * 
+ */
 void test_ClearAndFillRandom() {
   Serial.println();
-  Serial.println ("Filling circular buffer with random data..");
+  Serial.println ("clearAndFillRandom(): Filling circular buffer with random data..");
   // Serial.println();
 
   cBuffer.clear();  // Clear the circular buffer.
@@ -48,14 +52,18 @@ void test_ClearAndFillRandom() {
   }
 
   printCircBuffer();
-  Serial.println();
+  // Serial.println();
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Fills the circular buffer with sequential data and prints it. Use this to verify
+ * that the circular buffer is working properly.
+ * 
+ */
 void test_ClearAndFillSequential() {
   Serial.println();
-  Serial.println ("Filling circular buffer with sequential data..");
+  Serial.println ("clearAndFillSequential(): Filling circular buffer with sequential data..");
   // Serial.println();
 
   cBuffer.clear();  // Clear the circular buffer.
@@ -74,8 +82,12 @@ void test_ClearAndFillSequential() {
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Prints the circular buffer contents to the serial port.
+ * 
+ */
 void printCircBuffer() {  
+  Serial.print ("printCircBuffer(): ");
   int copyCount = cBuffer.bufferCopy (printBuffer, cBuffer.getOccupiedLength());
 
   Serial.print ("[" + String (copyCount) + "] ");
@@ -89,9 +101,13 @@ void printCircBuffer() {
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Prints the circular buffer contents by popping one value at a time. This can
+ * verify if the popping function is working properly.
+ * 
+ */
 void test_PopEach() {
-  Serial.println ("Printing the circular buffer by popping individually..");
+  Serial.println ("popEach(): Printing the circular buffer by popping individually..");
 
   while (!cBuffer.isEmpty()) {
     int popError = cBuffer.pop (&dataByte);  // Pop a single byte from the circular buffer.
@@ -102,9 +118,13 @@ void test_PopEach() {
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Prints the circular buffer contents by popping all values at once. This can
+ * verify if the popping function is working properly.
+ * 
+ */
 void test_PopAll() {
-  Serial.println ("Printing the circular buffer by popping all..");
+  Serial.println ("popAll(): Printing the circular buffer by popping all..");
   
   int popCount = cBuffer.pop (printBuffer, cBuffer.getOccupiedLength());
 
@@ -117,9 +137,12 @@ void test_PopAll() {
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Prints partial circular buffer content by popping a number of bytes at a time.
+ * 
+ */
 void test_PopPart() {
-  Serial.println ("Printing the circular buffer by popping some..");
+  Serial.println ("popPart(): Printing the circular buffer by popping some..");
   
   int popCount = cBuffer.pop (printBuffer, 5);
 
@@ -132,9 +155,12 @@ void test_PopPart() {
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Prints the contents of the circular buffer by copying all data to a new buffer.
+ * 
+ */
 void test_CopyAll() {
-  Serial.println ("Printing the circular buffer by copying..");
+  Serial.println ("copyAll(): Printing the circular buffer by copying..");
   
   int copyCount = cBuffer.bufferCopy (printBuffer, cBuffer.getOccupiedLength());
 
@@ -147,9 +173,12 @@ void test_CopyAll() {
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Prints partial circular buffer content by copying a number of bytes at a time.
+ * 
+ */
 void test_CopyPart() {
-  Serial.println ("Printing the circular buffer by copying part of it..");
+  Serial.println ("copyPart(): Printing the circular buffer by copying part of it..");
   
   int copyCount = cBuffer.bufferCopy (printBuffer, 5);
 
@@ -162,9 +191,12 @@ void test_CopyPart() {
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Prints the contents of the circular buffer by peeking and popping one value at a time.
+ * 
+ */
 void test_PeekAndPop() {
-  Serial.println ("Printing the circular buffer by peeking and popping..");
+  Serial.println ("peekAndPop(): Printing the circular buffer by peeking and popping..");
   
   int bytesToRead = cBuffer.getOccupiedLength();
 
@@ -183,28 +215,38 @@ void test_PeekAndPop() {
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Pushes a random value to the circular buffer and prints the details.
+ * 
+ */
 void test_PushOneEach() {
+  Serial.println ("pushOneEach(): Pushing a random value to the circular buffer..");
   cBuffer.discardOld = true;
 
   uint8_t randomData = (uint8_t) random (0, 255);  // Get a random number between 0 and 255.
   cBuffer.push (randomData);  // Push the random number to the circular buffer.
-  Serial.print ("Data: " + String (randomData) + ", Filled: " + String (cBuffer.getOccupiedLength()) + ", Free: " + String (cBuffer.getVacantLength()));  // Print the data to the serial port.
+  Serial.print ("Value: " + String (randomData) + ", Filled: " + String (cBuffer.getOccupiedLength()) + ", Free: " + String (cBuffer.getVacantLength()));  // Print the data to the serial port.
   Serial.println (", Head: " + String (cBuffer.getHead()) + ", Tail: " + String (cBuffer.getTail()));  // Print the head and tail to the serial port.
 
   int copyCount = cBuffer.bufferCopy (printBuffer, cBuffer.getOccupiedLength());
 
+  Serial.print ("Data: T-[");
   for (int i = 0; i < copyCount; i++) {
     Serial.printf ("%d ", printBuffer [i]);  // Print the data to the serial port.
   }
 
+  Serial.println("]-H");
   Serial.println();  // Print a new line.
-  printCircBufferStats();
+  // printCircBufferStats();
 }
 
 //==========================================================================================//
-
+/**
+ * @brief Prints the stats of the circular buffer.
+ * 
+ */
 void printCircBufferStats() {
+  Serial.print ("printCircBufferStats(): ");
   Serial.print ("Filled: " + String (cBuffer.getOccupiedLength()) + ", Free: " + String (cBuffer.getVacantLength()));  // Print the data to the serial port
   Serial.println (", Head: " + String (cBuffer.getHead()) + ", Tail: " + String (cBuffer.getTail()));
   Serial.println();
@@ -221,8 +263,7 @@ void setup() {
 
 void loop() {
   cBuffer.discardOld = true;
-  fillCircBuffer();
-  printCircBuffer();
+  // test_ClearAndFillRandom();
 
   // printCircBuffer_popEach();
   // printCircBuffer_popAll();
@@ -238,7 +279,7 @@ void loop() {
 
   // printCircBuffer_peekAll();
 
-  // pushOneEach();
+  test_PushOneEach();
 
   delay (1000);
 }

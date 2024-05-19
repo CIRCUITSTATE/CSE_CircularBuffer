@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For CSE_CircBuffer
+# Syntax Coloring Map For CSE_CircularBuffer
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-CSE_CircBuffer  KEYWORD1
+CSE_CircularBuffer  KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
