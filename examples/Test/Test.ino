@@ -1,5 +1,16 @@
 
 //==========================================================================================//
+/**
+ * @file Test.ino
+ * @author Vishnu Mohanan (@vishnumaiea, @vizmohanan)
+ * @maintainer CIRCUITSTATE Electronics (@circuitstate)
+ * @brief Test file for the CSE_CircularBuffer Arduino library.
+ * @version 0.0.2
+ * @date Last Modified: +05:30 20:59:07 PM 19-05-2024, Sunday
+ * @license MIT
+ * @mainpage https://github.com/CIRCUITSTATE/CSE_CircularBuffer
+ */
+//==========================================================================================//
 
 #include <Arduino.h>
 #include <CSE_CircularBuffer.h>
