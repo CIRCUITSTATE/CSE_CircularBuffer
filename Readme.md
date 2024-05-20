@@ -7,7 +7,7 @@
 
 This library is available from the official **Arduino Library Manager**. Open the Arduino IDE, search for "CSE_CircularBuffer" and install the latest version of the library.
 
-Additionally, you can download the latest release package from the GitHub repository and install it manually. To do so, open the Arduino IDE, go to *Sketch > Include Library > Add .ZIP Library…*​ and select the downloaded file.
+Additionally, you can download the latest release package from the GitHub repository and install it manually. To do so, open the Arduino IDE, go to *Sketch > Include Library > Add .ZIP Library* and select the downloaded file.
 
 Another method is to clone the GitHub repository directly into your `libraries` folder. The development branch will have the latest features, bug fixes and other changes. To do so, navigate to your `libraries` folder (usually located at *Documents/Arduino/libraries* on Windows and *~/Documents/Arduino/libraries* on macOS) and execute the following command:
 
