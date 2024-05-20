@@ -1,5 +1,5 @@
 
-![CSE_CircularBuffer](https://socialify.git.ci/CIRCUITSTATE/CSE_MillisTimer/image?description=1&font=KoHo&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
+![CSE_CircularBuffer](https://socialify.git.ci/CIRCUITSTATE/CSE_CircularBuffer/image?description=1&font=KoHo&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
 
 # CSE_CircularBuffer
 
