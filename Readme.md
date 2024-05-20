@@ -3,6 +3,18 @@
 
 **CSE_CircularBuffer** is a simple circular buffer library from [*CIRCUITSTATE Electronics*](https://www.circuitstate.com/) for the Arduino platform. It supports multiple data types and has most of the methods you will need.
 
+## Installation
+
+This library is available from the official **Arduino Library Manager**. Open the Arduino IDE, search for "CSE_CircularBuffer" and install the latest version of the library.
+
+Additionally, you can download the latest release package from the GitHub repository and install it manually. To do so, open the Arduino IDE, go to *Sketch > Include Library > Add .ZIP Library…*​ and select the downloaded file.
+
+Another method is to clone the GitHub repository directly into your `libraries` folder. The development branch will have the latest features, bug fixes and other changes. To do so, navigate to your `libraries` folder (usually located at *Documents/Arduino/libraries* on Windows and *~/Documents/Arduino/libraries* on macOS) and execute the following command:
+
+```
+git clone https://github.com/CIRCUITSTATE/CSE_CircularBuffer.git
+```
+
 ## Example
 
 The following example shows how to read values through an ADC pin and store them in a circular buffer to find the average. This example uses the [**CSE_MillisTimer**](https://github.com/CIRCUITSTATE/CSE_MillisTimer) library for timing.
@@ -46,9 +58,9 @@ void loop() {
 }
 ```
 
-## Documentation
+## API Reference
 
-Please see the [API.md](/docs/API.md) file for the documentation.
+Please see the [API.md](/docs/API.md) file for the API reference.
 
 ## References
 
