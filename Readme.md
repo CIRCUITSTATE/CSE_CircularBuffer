@@ -17,6 +17,8 @@ Another method is to clone the GitHub repository directly into your `libraries` 
 git clone https://github.com/CIRCUITSTATE/CSE_CircularBuffer.git
 ```
 
+The library can also be installed via **PlatformIO**. All officially listed Arduino listed libraries are automatically fetched by PlatformIO. Use the `lib_deps` search option to install the library.
+
 ## Example
 
 The following example shows how to read values through an ADC pin and store them in a circular buffer to find the average. This example uses the [**CSE_MillisTimer**](https://github.com/CIRCUITSTATE/CSE_MillisTimer) library for timing.
