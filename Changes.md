@@ -1,70 +1,76 @@
 
+# Changes
+
+#
+### **+05:30 02:46:36 PM 22-02-2026, Sunday**
+
+  - Updated Readme.
 
 #
 ### **+05:30 10:21:41 PM 19-05-2024, Sunday**
 
-  * Added LICENSE file.
+  - Added LICENSE file.
 
 #
 ### **+05:30 09:55:39 PM 19-05-2024, Sunday**
 
-  * Updated API.md.
+  - Updated API.md.
 
 #
 ### **+05:30 08:59:21 PM 19-05-2024, Sunday**
 
-  * Added file information to the `Test.ino` example.
+  - Added file information to the `Test.ino` example.
 
 #
 ### **+05:30 08:57:30 PM 19-05-2024, Sunday**
 
-  * Updated `ADC-Average.ino` example.
+  - Updated `ADC-Average.ino` example.
 
 #
 ### **+05:30 08:56:05 PM 19-05-2024, Sunday**
 
-  * Updated Readme.
+  - Updated Readme.
 
 #
-### **+05:30 06:08:52 PM 19-05-2024, Sunday** 
+### **+05:30 06:08:52 PM 19-05-2024, Sunday*- 
 
-  * Added the `ADC-Average.ino` example.
+  - Added the `ADC-Average.ino` example.
 
 #
 ### **+05:30 04:09:07 PM 19-05-2024, Sunday**
 
-  * Updated `Test.ino` example.
-    * Added `CSE_Data_t` type. Set the data type of the buffer here and it will be used in all test-cases.
-    * Renamed `dataByte` to `dataItem`.
+  - Updated `Test.ino` example.
+    - Added `CSE_Data_t` type. Set the data type of the buffer here and it will be used in all test-cases.
+    - Renamed `dataByte` to `dataItem`.
 
 #
 ### **+05:30 03:47:44 PM 19-05-2024, Sunday**
 
-  * Updated documentation.
-  * Changed `byteOrder` to `dataOrder` everywhere.
+  - Updated documentation.
+  - Changed `byteOrder` to `dataOrder` everywhere.
 
 #
 ### **+05:30 03:12:03 PM 19-05-2024, Sunday**
 
-  * Added support for any data type on the circular buffer.
-  * The main class `CSE_CircularBuffer` and the functions are now template based.
-  * Renamed `CSE_CircularBuffer.cpp` to `CSE_CircularBuffer.tpp`.
-  * Renamed `CSE_CircularBuffer.h` to `CSE_CircularBuffer.hpp`.
-  * Created new `CSE_CircularBuffer.h` header file for C-style include.
-  * Updated `Test.ino` example.
-  * `Test.ino` example compiles and is working.
+  - Added support for any data type on the circular buffer.
+  - The main class `CSE_CircularBuffer` and the functions are now template based.
+  - Renamed `CSE_CircularBuffer.cpp` to `CSE_CircularBuffer.tpp`.
+  - Renamed `CSE_CircularBuffer.h` to `CSE_CircularBuffer.hpp`.
+  - Created new `CSE_CircularBuffer.h` header file for C-style include.
+  - Updated `Test.ino` example.
+  - `Test.ino` example compiles and is working.
 
 #
 ### **+05:30 12:07:47 PM 19-05-2024, Sunday**
 
-  * Updated version to `0.0.2`.
+  - Updated version to `0.0.2`.
 
 #
 ### **+05:30 11:48:41 AM 19-05-2024, Sunday**
 
-  * Renamed library and class to `CSE_CircularBuffer`.
-  * Added Changes and Readme.
-  * Updated `Test.ino` example.
-  * Added .gitignore file.
-  * Added include guard.
+  - Renamed library and class to `CSE_CircularBuffer`.
+  - Added Changes and Readme.
+  - Updated `Test.ino` example.
+  - Added .gitignore file.
+  - Added include guard.
 

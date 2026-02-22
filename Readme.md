@@ -17,52 +17,20 @@ Another method is to clone the GitHub repository directly into your `libraries` 
 git clone https://github.com/CIRCUITSTATE/CSE_CircularBuffer.git
 ```
 
-The library can also be installed via **PlatformIO**. All officially listed Arduino listed libraries are automatically fetched by PlatformIO. Use the `lib_deps` search option to install the library.
+[**Git**](https://git-scm.com) should be installed on your computer.
+
+The library can also be installed via [**PlatformIO**](https://platformio.org). All officially listed Arduino listed libraries are automatically fetched by PlatformIO. Use the [`lib_deps`](https://docs.platformio.org/en/latest/projectconf/sections/env/options/library/lib_deps.html) search option to install the library.
+
+## Dependencies
+
+This library does not have any external dependencies apart from the standard Arduino libraries.
 
 ## Example
 
-The following example shows how to read values through an ADC pin and store them in a circular buffer to find the average. This example uses the [**CSE_MillisTimer**](https://github.com/CIRCUITSTATE/CSE_MillisTimer) library for timing.
+- [**ADC-Average**](/examples/ADC-Average/) - This example shows how to read values through an ADC pin and store them in a circular buffer to find the average. This example uses the [**CSE_MillisTimer**](https://github.com/CIRCUITSTATE/CSE_MillisTimer) library for timing.
 
-```cpp
-#include <CSE_CircularBuffer.hpp>
-#include <CSE_MillisTimer.h>  // Requires the timer library
 
-#define  ADC_PIN   A0
-
-CSE_CircularBuffer <int> cbuffer (100); // Create a buffer with capacity of 100
-CSE_MillisTimer printTimer (500); // Create a timer with a 500 ms interval
-
-void setup() {
-  Serial.begin (115200);
-  pinMode (ADC_PIN, INPUT);
-  printTimer.start();
-}
-
-void loop() {
-  int reading = analogRead (ADC_PIN); // Read the analog pin
-  cbuffer.push (reading); // Push the reading to the circular buffer
-
-  if (printTimer.isElapsed()) {  // Print every 500 ms
-    int readingSum = 0;  // The sum of all readings
-    int sampleCount = cbuffer.getOccupiedLength();  // The number of readings
-
-    for (int i = 0; i < sampleCount; i++) { // Calculate the sum of all readings
-      int value = 0;
-      cbuffer.pop (&value);  // Pop the reading
-      readingSum += value;  // Add the reading to the sum
-    }
-
-    float average = (float) readingSum / sampleCount;  // Calculate the average
-
-    Serial.print ("Average is ");
-    Serial.println (average);
-
-    printTimer.start(); // Reset the timer
-  }
-}
-```
-
-## API Reference
+## API Documentation
 
 Please see the [API.md](/docs/API.md) file for the API reference.
 
